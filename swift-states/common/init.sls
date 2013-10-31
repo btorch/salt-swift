@@ -39,13 +39,12 @@ sysstat:
 
 {% if grains['os_family'] == 'Debian' %}
 /etc/default/sysstat:
-  file
-    - replace
+  file.replace:
     - path: /etc/default/sysstat
     - pattern: 'ENABLED="false"'
     - repl: 'ENABLED="true"'
     - require:
-      - pkg: common_pkgs
+      - pkg: sysstat
 {% endif %}
 
 sysstat_init:
