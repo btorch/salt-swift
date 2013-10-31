@@ -5,6 +5,3 @@ common_pkgs:
     - pkgs:
       - ntp
       - ntpdate
-  service:
-    - running
-    - enable: True
