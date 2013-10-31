@@ -2,7 +2,6 @@ common_pkgs:
   pkg:
     - installed
     - skip_verify: True
-    {% if grains['os_family'] == 'Debian' %}
     - pkgs:
       - ntp
       - ntpdate
@@ -13,23 +12,38 @@ common_pkgs:
       - curl
       - iptraf
       - htop
-      - nmon
       - sysstat
       - strace
       - iotop
-      - debsums
       - screen 
+
+distro_diff_pkgs:
+  pkg:
+    - installed
+    - skip_verify: True
+    {% if grains['os_family'] == 'Debian' %}
+    - pkgs:
+      - debconf
+      - nmon
       - sqlite3
+      - bsd-mailx
+    {% elif grains['os_family'] == 'Redhat' %}
+    - pkgs:
+      - iptraf-ng
+      - mailx
     {% endif %}
 
+{% if grains['os_family'] == 'Debian' %}
 /etc/default/sysstat:
   file.replace:
     - path: /etc/default/sysstat
     - pattern: 'ENABLED="false"'
     - repl: 'ENABLED="true"'
+{% endif %}
 
 sysstat_init:
   service:
     - running
     - reload: True
+    - enable: True
     - name: sysstat
