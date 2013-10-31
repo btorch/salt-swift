@@ -27,3 +27,9 @@ common_pkgs:
     - path: /etc/default/sysstat
     - pattern: 'ENABLED="false"'
     - repl: 'ENABLED="true"'
+
+sysstat_init:
+  service:
+    - running
+    - reload: True
+    - name: sysstat
