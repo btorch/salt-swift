@@ -21,3 +21,9 @@ common_pkgs:
       - screen 
       - sqlite3
     {% endif %}
+
+/etc/default/sysstat:
+  file.replace:
+    - path: /etc/default/sysstat
+    - pattern: 'ENABLED="false"'
+    - repl: 'ENABLED="true"'
