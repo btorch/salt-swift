@@ -18,7 +18,11 @@ swift-account:
       {% endif %}
   service:
     - running
+    {% if grains['os_family'] == 'Debian' %}
     - name: swift-account
+    {% elif grains['os_family'] == 'Redhat' %}
+    - name: openstack-swift-account
+    {% endif %}
     - sig: swift-account-server
     - enable: True
     - reload: True
