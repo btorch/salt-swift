@@ -18,7 +18,7 @@ swift-account:
       {% endif %}
   service:
     - running
-    - name: swift-account-server
+    - name: swift-account
     - sig: swift-account-server
     - enable: True
     - reload: True
