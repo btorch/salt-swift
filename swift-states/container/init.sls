@@ -1,6 +1,6 @@
-/tmp/container-server.conf:
+/etc/swift/container-server.conf:
   file.managed:
     - source: salt://container/container-server.conf
-    - user: root
-    - group: root
+    - user: swift
+    - group: swift
     - template: jinja

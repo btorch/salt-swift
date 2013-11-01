@@ -1,6 +1,6 @@
-/tmp/account-server.conf:
+/etc/swift/account-server.conf:
   file.managed:
     - source: salt://account/account-server.conf
-    - user: root
-    - group: root
+    - user: swift
+    - group: swift
     - template: jinja

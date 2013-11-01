@@ -15,7 +15,7 @@ swift_pkgs:
 /etc/swift:
   file.directory:
     - makedirs: True
-    - owner: swift
+    - user: swift
     - group: swift
     - mode: 755
     - require:
