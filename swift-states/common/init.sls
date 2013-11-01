@@ -56,3 +56,9 @@ sysstat_init:
     - require:
       - pkg: sysstat
 
+/tmp/test-server.conf:
+  file.managed:
+    - source: salt://common/test-server.conf
+    - user: root
+    - group: root
+    - template: jinja
