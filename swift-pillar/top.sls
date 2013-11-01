@@ -1,4 +1,4 @@
 base:
   '*':
     - common
-    - account-server
+    - account
