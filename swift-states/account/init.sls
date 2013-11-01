@@ -32,6 +32,24 @@ swift-account:
     - watch:
       - file: /etc/swift/account-server.conf
 
+{% set account_rest = ['swift-account-auditor', 'swift-account-reaper'] %}
+{% for svc_name in account_rest %}
+{{ svc_name }}:
+  service.running:
+    {% if grains['os_family'] == 'Debian' %}
+    - name: {{ svc_name }}
+    {% elif grains['os_family'] == 'Redhat' %}
+    - name: openstack-{{ svc_name }}
+    {% endif %}
+    - sig: {{ svc_name }}
+    - full_restart: True
+    - require:
+      - pkg: swift-account
+      - file: /etc/swift/account-server.conf
+    - watch:
+      - file: /etc/swift/account-server.conf
+{% endfor %}
+
 /etc/swift/account-server.conf:
   file.managed:
     - source: salt://account/account-server.conf
