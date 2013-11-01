@@ -7,10 +7,15 @@ swift_pkgs:
       - python-greenlet
       - python-eventlet
       - python-dnspython
-      - python-swift
       - python-swiftclient
+      {% if grains['os_family'] == 'Debian' %}
+      - python-swift
       - swift
       - swift-doc
+      {% elif grains['os_family'] == 'Redhat' %}
+      - openstack-swift
+      - openstack-swift-doc
+      {% endif %}
 
 /etc/swift:
   file.directory:
