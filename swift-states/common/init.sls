@@ -1,6 +1,11 @@
+include:
+  - common.openstack_repo
+  - common.sysstat
+
 common_pkgs:
   pkg:
     - installed
+    - order: 1
     - skip_verify: True
     - pkgs:
       - ntp
@@ -14,44 +19,18 @@ common_pkgs:
       - htop
       - strace
       - iotop
-      - screen 
-
-distro_diff_pkgs:
-  pkg:
-    - installed
-    - skip_verify: True
-    {% if grains['os_family'] == 'Debian' %}
-    - pkgs:
+      - screen
+      - gcc
+      - parted
+      - python-pip
+      - python-setuptools
+      {% if grains['os_family'] == 'Debian' %}
       - debconf
       - nmon
       - sqlite3
       - bsd-mailx
-    {% elif grains['os_family'] == 'Redhat' %}
-    - pkgs:
+      - ubuntu-cloud-keyring
+      {% elif grains['os_family'] == 'Redhat' %}
       - iptraf-ng
       - mailx
-    {% endif %}
-
-sysstat:
-  pkg:
-    - installed
-    - skip_verify: True
-
-{% if grains['os_family'] == 'Debian' %}
-/etc/default/sysstat:
-  file.replace:
-    - path: /etc/default/sysstat
-    - pattern: 'ENABLED="false"'
-    - repl: 'ENABLED="true"'
-    - require:
-      - pkg: sysstat
-{% endif %}
-
-sysstat_init:
-  service:
-    - running
-    - reload: True
-    - enable: True
-    - name: sysstat
-    - require:
-      - pkg: sysstat
+      {% endif %}
