@@ -1,7 +1,7 @@
 include:
   - common.openstack_repo
 
-swift-account:
+swift-account-pkg:
   pkg.installed:
     - skip_verify: True
     {% if grains['os_family'] == 'Debian' %}
@@ -16,39 +16,6 @@ swift-account:
       - pkgrepo: epel_repo
       - pkgrepo: epel_openstack_repo
       {% endif %}
-  service:
-    - running
-    {% if grains['os_family'] == 'Debian' %}
-    - name: swift-account
-    {% elif grains['os_family'] == 'Redhat' %}
-    - name: openstack-swift-account
-    {% endif %}
-    - sig: swift-account-server
-    - enable: True
-    - reload: True
-    - require:
-      - pkg: swift-account
-      - file: /etc/swift/account-server.conf
-    - watch:
-      - file: /etc/swift/account-server.conf
-
-{% set account_rest = ['swift-account-auditor', 'swift-account-reaper'] %}
-{% for svc_name in account_rest %}
-{{ svc_name }}:
-  service.running:
-    {% if grains['os_family'] == 'Debian' %}
-    - name: {{ svc_name }}
-    {% elif grains['os_family'] == 'Redhat' %}
-    - name: openstack-{{ svc_name }}
-    {% endif %}
-    - sig: {{ svc_name }}
-    - full_restart: True
-    - require:
-      - pkg: swift-account
-      - file: /etc/swift/account-server.conf
-    - watch:
-      - file: /etc/swift/account-server.conf
-{% endfor %}
 
 /etc/swift/account-server.conf:
   file.managed:
@@ -56,3 +23,19 @@ swift-account:
     - user: swift
     - group: swift
     - template: jinja
+
+{# The swift-account-replicator is for now left out since it requires the ring to be in place #}
+{% set account_svcs = ['swift-account-server', 'swift-account-auditor', 'swift-account-reaper'] %}
+{% for svc_name in account_svcs %}
+{{ svc_name }}:
+  service.running:
+    - name: {{ svc_name }}
+    - sig: {{ svc_name }}
+    - reload: True
+    - require:
+      - pkg: swift-account-pkg
+      - file: /etc/swift/account-server.conf
+    - watch:
+      - file: /etc/swift/account-server.conf
+{% endfor %}
+
