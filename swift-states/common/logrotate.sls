@@ -15,7 +15,7 @@ logrotate_swift:
     - defaults:
     {% if grains['os_family'] == 'Debian' %}
         service_path: /usr/sbin/service
-    {% elif grains[os_family'] == 'Redhat' %}
+    {% elif grains['os_family'] == 'Redhat' %}
         service_path: /sbin/service
     {% endif %}
     - require:
