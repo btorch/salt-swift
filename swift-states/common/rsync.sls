@@ -11,7 +11,7 @@ rsync_default:
     - pattern: 'RSYNC_ENABLE=false'
     - repl: 'RSYNC_ENABLE=true'
     - require:
-      - pkg: rsync-pkg
+      - pkg: rsync_pkg
 {% endif %}
 
 rsyncd_conf:
@@ -27,7 +27,7 @@ rsyncd_conf:
         container_conns: 6
         object_conns: 8
     - require:
-      - pkg: rsync-pkg
+      - pkg: rsync_pkg
 
 rsync_svc:
   service:
