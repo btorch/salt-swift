@@ -1,2 +1,3 @@
 Etc/UTC:
-  timezone.system
+  timezone.system:
+    - order: 1

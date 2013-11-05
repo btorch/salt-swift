@@ -8,7 +8,7 @@ include:
 common_pkgs:
   pkg:
     - installed
-    - order: 1
+    - order: 2
     - skip_verify: True
     - pkgs:
       - ntp

@@ -1,7 +1,7 @@
 {% if grains['os_family'] == 'Debian' %}
 ubuntu_cloud_repo:
   pkgrepo.managed:
-    - order: 2
+    - order: 3
     - humanname: Ubuntu Cloud Archive (Havana)
     - name: deb http://ubuntu-cloud.archive.canonical.com/ubuntu precise-updates/havana main
     - file: /etc/apt/sources.list.d/openstack_havana.list
@@ -10,7 +10,7 @@ ubuntu_cloud_repo:
 {% elif grains['os_family'] == 'Redhat' %}
 epel_repo:
   pkgrepo.managed:
-    - order: 2
+    - order: 3
     - humanname: Extra Packages for Enterprise Linux
     - mirrorlist: http://mirrors.fedoraproject.org/mirrorlist?repo=epel-6&arch=$basearch
     - gpgcheck: 1
@@ -18,7 +18,7 @@ epel_repo:
 
 epel_openstack_repo:
   pkgrepo.managed:
-    - order: 3
+    - order: 4
     - humanname: OpenStack Havana Repository for EPEL 6
     - mirrorlist: http://repos.fedorapeople.org/repos/openstack/openstack-havana/epel-6
     - gpgcheck: 0
