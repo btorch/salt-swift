@@ -1,6 +1,9 @@
 include:
+  - common.timezone
   - common.openstack_repo
   - common.sysstat
+  - common.logrotate
+  - common.snmp
 
 common_pkgs:
   pkg:
