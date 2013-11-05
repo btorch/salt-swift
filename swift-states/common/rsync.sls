@@ -1,5 +1,6 @@
-rsync-pkg:
+rsync_pkg:
   pkg:
+    - name: rsync
     - installed
     - skip_verify: True
 
@@ -28,7 +29,7 @@ rsyncd_conf:
     - require:
       - pkg: rsync-pkg
 
-rsync-init:
+rsync_svc:
   service:
     - running
     - reload: True
@@ -41,6 +42,6 @@ rsync-init:
     - sig: '/usr/bin/rsync --daemon'
     {% endif %}
     - require:
-      - pkg: rsync-pkg
+      - pkg: rsync_pkg
       - file.replace: rsync_default
       - file.managed: rsyncd_conf
