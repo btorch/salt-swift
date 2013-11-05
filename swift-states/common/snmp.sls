@@ -31,8 +31,8 @@ snmpd_conf:
 snmp_svc:
   service:
     - running
-    - reload: True
     - enable: True
+    - full_restart: True
     - name: snmpd
     {% if grains['os_family'] == 'Debian' %}
     - sig: ' /usr/sbin/snmpd -Lsd -Lf'
@@ -41,4 +41,6 @@ snmp_svc:
     {% endif %}
     - require:
       - pkg: snmp_pkgs
+      - file.managed: snmpd_conf
+    - watch: 
       - file.managed: snmpd_conf
