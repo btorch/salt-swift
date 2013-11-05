@@ -7,6 +7,7 @@ rsync_pkg:
 {% if grains['os_family'] == 'Debian' %}
 rsync_default:
   file.replace:
+    - name: /etc/default/rsync
     - path: /etc/default/rsync
     - pattern: 'RSYNC_ENABLE=false'
     - repl: 'RSYNC_ENABLE=true'
