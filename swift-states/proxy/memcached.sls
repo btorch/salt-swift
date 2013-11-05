@@ -4,12 +4,13 @@ memcached:
     - pkgs:
       - memcached
     {% if grains['os_family'] == 'Debian' %}
-      - python-memcached
-    {% elif grains['os_family'] == 'Redhat' %}
       - python-memcache
+    {% elif grains['os_family'] == 'Redhat' %}
+      - python-memcached
     {% endif %}
   file.managed:
     - name: /etc/memcached.conf
+    - source: salt://proxy/memcached.conf 
     - user: root
     - group: root
     - mode: 644
