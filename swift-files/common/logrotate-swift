@@ -5,6 +5,6 @@
     compress
     missingok
     postrotate
-        /sbin/service syslog-ng reload >/dev/null
+        {{ service_path }} syslog-ng reload >/dev/null
     endscript
 }

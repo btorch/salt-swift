@@ -12,5 +12,11 @@ logrotate_swift:
     - group: root
     - mode: 644
     - template: jinja
+    - defaults:
+    {% if grains['os_family'] == 'Debian' %}
+        service_path: /usr/sbin/service
+    {% elif grains[os_family'] == 'Redhat' %}
+        service_path: /sbin/service
+    {% endif %}
     - require:
       - pkg: logrotate_pkg
