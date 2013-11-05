@@ -2,19 +2,19 @@ base:
   '*':
     - common
     - swift
-  'roles:admin'
+  'roles:admin':
     - match: grain
     - swift
     - admin
-  'roles:account'
+  'roles:account':
     - match: grain
     - account
-  'roles:container'
+  'roles:container':
     - match: grain
     - container
-  'roles:object'
+  'roles:object':
     - match: grain
     - object
-  'roles:proxy'
+  'roles:proxy':
     - match: grain
     - proxy
