@@ -23,7 +23,7 @@ memcached:
   service:
     - running
     - enable: True
-    - reload: True
+    - full_restart: True
     - require:
       - pkg: memcached
       - file: /etc/memcached.conf
