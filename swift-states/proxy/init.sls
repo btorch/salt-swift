@@ -1,5 +1,6 @@
 include:
   - common.openstack_repo
+  - proxy.memcached
 
 swift-proxy:
   pkg.installed:
@@ -16,6 +17,7 @@ swift-proxy:
       - pkgrepo: epel_repo
       - pkgrepo: epel_openstack_repo
       {% endif %}
+      - pkg: memcached
   service:
     - running
     {% if grains['os_family'] == 'Debian' %}
