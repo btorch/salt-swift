@@ -1,5 +1,6 @@
 include:
   - common.openstack_repo
+  - common.rsync
 
 swift-account-pkg:
   pkg.installed:
@@ -25,12 +26,16 @@ swift-account-pkg:
     - template: jinja
 
 {# The swift-account-replicator is for now left out since it requires the ring to be in place #}
-{% set account_svcs = ['swift-account-server', 'swift-account-auditor', 'swift-account-reaper'] %}
+{% set account_svcs = ['swift-account', 'swift-account-auditor', 'swift-account-reaper'] %}
 {% for svc_name in account_svcs %}
 {{ svc_name }}:
   service.running:
     - name: {{ svc_name }}
+    {% if svc_name == 'swift-account' %}
+    - sig: swift-account-server
+    {% else %}
     - sig: {{ svc_name }}
+    {% endif %}
     - reload: True
     - require:
       - pkg: swift-account-pkg
