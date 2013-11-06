@@ -33,10 +33,11 @@ swift-container-pkg:
     - name: {{ svc_name }}
     {% if svc_name == 'swift-container' %}
     - sig: swift-container-server
+    - reload: True
     {% else %}
     - sig: {{ svc_name }}
+    - full_restart: True
     {% endif %}
-    - reload: True
     - require:
       - pkg: swift-container-pkg
       - file: /etc/swift/container-server.conf
@@ -51,7 +52,7 @@ swift-container-replicator:
   service.running:
     - name: swift-container-replicator
     - sig: swift-container-replicator
-    - reload: True
+    - full_restart: True
     - require:
       - pkg: swift-container-pkg
       - file: /etc/swift/container-server.conf

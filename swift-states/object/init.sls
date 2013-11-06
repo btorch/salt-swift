@@ -33,10 +33,11 @@ swift-object-pkg:
     - name: {{ svc_name }}
     {% if svc_name == 'swift-object' %}
     - sig: swift-object-server
+    - reload: True
     {% else %}
     - sig: {{ svc_name }}
     {% endif %}
-    - reload: True
+    - full_restart: True
     - require:
       - pkg: swift-object-pkg
       - file: /etc/swift/object-server.conf
@@ -51,7 +52,7 @@ swift-object-replicator:
   service.running:
     - name: swift-object-replicator
     - sig: swift-object-replicator
-    - reload: True
+    - full_restart: True
     - require:
       - pkg: swift-object-pkg
       - file: /etc/swift/object-server.conf

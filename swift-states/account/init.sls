@@ -34,10 +34,11 @@ swift-account-pkg:
     - name: {{ svc_name }}
     {% if svc_name == 'swift-account' %}
     - sig: swift-account-server
+    - reload: True
     {% else %}
     - sig: {{ svc_name }}
+    - full_restart: True
     {% endif %}
-    - reload: True
     - require:
       - pkg: swift-account-pkg
       - file: /etc/swift/account-server.conf
@@ -52,7 +53,7 @@ swift-account-replicator:
   service.running:
     - name: swift-account-replicator
     - sig: swift-account-replicator
-    - reload: True
+    - full_restart: True
     - require:
       - pkg: swift-account-pkg
       - file: /etc/swift/account-server.conf
