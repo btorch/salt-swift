@@ -1,0 +1,1 @@
+*/5 * * * * root /usr/bin/swift-drive-audit /etc/swift/drive-audit.conf 2>&1 | logger

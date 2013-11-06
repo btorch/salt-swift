@@ -1,6 +1,7 @@
 include:
   - common.openstack_repo
   - common.rsync
+  - common.drive_audit
 
 swift-account-pkg:
   pkg.installed:
