@@ -26,7 +26,7 @@ swift-proxy:
     - group: swift
     - template: jinja
 
-{% if salt['file.exists']('/etc/swift/account.ring.gz') %}
+{% if salt['file.file_exists']('/etc/swift/account.ring.gz') and salt['file.file_exists']('/etc/swift/container.ring.gz') and salt['file.file_exists']('/etc/swift/object.ring.gz') %}
 proxy_svc:
   service:
     - running

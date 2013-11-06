@@ -17,6 +17,7 @@ swift-account-pkg:
       - pkgrepo: epel_repo
       - pkgrepo: epel_openstack_repo
       {% endif %}
+      - pkg: rsync_pkg
 
 /etc/swift/account-server.conf:
   file.managed:
@@ -25,7 +26,6 @@ swift-account-pkg:
     - group: swift
     - template: jinja
 
-{# The swift-account-replicator is for now left out since it requires the ring to be in place #}
 {% set account_svcs = ['swift-account', 'swift-account-auditor', 'swift-account-reaper'] %}
 {% for svc_name in account_svcs %}
 {{ svc_name }}:
@@ -44,3 +44,17 @@ swift-account-pkg:
       - file: /etc/swift/account-server.conf
 {% endfor %}
 
+{# The swift-account-replicator is apart since it needs to ring to startup #}
+{# unfortunately there is no break/continue on jinja For Loops #}
+{% if salt['file.file_exists']('/etc/swift/account.ring.gz') %}
+swift-account-replicator:
+  service.running:
+    - name: swift-account-replicator
+    - sig: swift-account-replicator
+    - reload: True
+    - require:
+      - pkg: swift-account-pkg
+      - file: /etc/swift/account-server.conf
+    - watch:
+      - file: /etc/swift/account-server.conf
+{% endif %}
