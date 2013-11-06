@@ -8,7 +8,9 @@
     - require:
       - pkg: common_pkgs
       - pkg: swift_pkgs
+{% endif %}
 
+{% if not salt['file.file_exists']('/etc/cron.d/swift-drive-audit') %}
 /etc/cron.d/swift-drive-audit:
   file.managed:
     - source: salt://common/storage/drive-audit.cron
