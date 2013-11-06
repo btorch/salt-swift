@@ -1,4 +1,4 @@
-{% if not salt['file.file_exists']('/etc/swift/drive-audit.conf') %}
+{% if not salt['file.file_exists']('/etc/swift/drive-audit.conf') or salt['file.file_exists']('/etc/cron.d/swift-drive-audit') %}
 /etc/swift/drive-audit.conf:
   file.managed:
     - source: salt://common/storage/drive-audit.conf
@@ -8,9 +8,7 @@
     - require:
       - pkg: common_pkgs
       - pkg: swift_pkgs
-{% endif %}
 
-{% if not salt['file.file_exists']('/etc/cron.d/swift-drive-audit') %}
 /etc/cron.d/swift-drive-audit:
   file.managed:
     - source: salt://common/storage/drive-audit.cron
