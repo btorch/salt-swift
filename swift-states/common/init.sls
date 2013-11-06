@@ -4,6 +4,7 @@ include:
   - common.sysstat
   - common.logrotate
   - common.snmp
+  - common.syslog-ng
 
 common_pkgs:
   pkg:
