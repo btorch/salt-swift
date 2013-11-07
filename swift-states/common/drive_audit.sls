@@ -1,4 +1,4 @@
-{% if not salt['file.file_exists']('/etc/swift/drive-audit.conf') or salt['file.file_exists']('/etc/cron.d/swift-drive-audit') %}
+{% if not salt['file.file_exists']('/etc/swift/drive-audit.conf') or not salt['file.file_exists']('/etc/cron.d/swift-drive-audit') %}
 /etc/swift/drive-audit.conf:
   file.managed:
     - source: salt://common/storage/drive-audit.conf
