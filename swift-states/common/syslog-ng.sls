@@ -52,3 +52,5 @@ syslog-ng_svc:
     - require:
       - pkg: syslog-ng_pkg
       - file.managed: syslog-ng_conf
+    - watch:
+      - file.managed: syslog-ng_conf
