@@ -1,10 +1,10 @@
 include:
   - common.timezone
   - common.openstack_repo
+  - common.syslog-ng
   - common.sysstat
   - common.logrotate
   - common.snmp
-  - common.syslog-ng
 
 common_pkgs:
   pkg:
