@@ -41,7 +41,7 @@ swift-ring-master:
       - cmd.wait: swift-ring-master
       - file.directory: /var/log/ring-master    
 
-/etc/init.d/swift-ring-master-wsgi-init
+/etc/init.d/swift-ring-master-wsgi-init:
   file.copy:
     - name: /etc/init.d/swift-ring-master-wsgi-init
     - source: /usr/local/src/swift-ring-master/etc/init.d/swift-ring-master-wsgi-init
