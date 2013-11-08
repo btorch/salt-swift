@@ -4,7 +4,6 @@ base:
     - swift
   'roles:admin':
     - match: grain
-    - swift
     - admin
   'roles:account':
     - match: grain
