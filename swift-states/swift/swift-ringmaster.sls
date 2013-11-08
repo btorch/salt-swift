@@ -69,6 +69,33 @@ install-swift-ring-master:
       - git: swift-ring-master
       - cmd: install-swift-ring-master
       - file.directory: /var/log/ring-master    
+
+/etc/init.d/swift-ring-minion:
+  file.absent:
+    - name: /etc/init.d/swift-ring-minion
+
+swift-ring-master-server:
+  service:
+    - running
+    - sig: swift-ring-master-server
+    - enable: True
+    - require:
+      - git: swift-ring-master
+      - file: /etc/swift/ring-master.conf
+    - watch:
+      - file: /etc/init.d/swift-ring-master-server
+
+swift-ring-master-wsgi:
+  service:
+    - running
+    - sig: swift-ring-master-wsgi-server
+    - enable: True
+    - require:
+      - git: swift-ring-master
+      - file: /etc/swift/ring-master.conf
+    - watch:
+      - file: /etc/init.d/swift-ring-master-wsgi
+
 {% else %}
 /etc/swift/ring-minion.conf:
   file.managed:
