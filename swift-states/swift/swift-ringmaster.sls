@@ -1,5 +1,5 @@
 /usr/lib/python2.7/site-packages:
-  file.direcotry:
+  file.directory:
     - user: root
     - group: root
     - mode: 755
