@@ -46,9 +46,9 @@ install-swift-ring-master:
       - cmd: install-swift-ring-master
       - file.directory: /var/log/ring-master
 
-/etc/init.d/swift-ring-master-init:
+/etc/init.d/swift-ring-master-server:
   file.copy:
-    - name: /etc/init.d/swift-ring-master-init
+    - name: /etc/init.d/swift-ring-master-server
     - source: /usr/local/src/swift-ring-master/etc/init.d/swift-ring-master-init
     - user: root
     - group: root
@@ -58,9 +58,9 @@ install-swift-ring-master:
       - cmd: install-swift-ring-master
       - file.directory: /var/log/ring-master    
 
-/etc/init.d/swift-ring-master-wsgi-init:
+/etc/init.d/swift-ring-master-wsgi:
   file.copy:
-    - name: /etc/init.d/swift-ring-master-wsgi-init
+    - name: /etc/init.d/swift-ring-master-wsgi
     - source: /usr/local/src/swift-ring-master/etc/init.d/swift-ring-master-wsgi-init
     - user: root
     - group: root
