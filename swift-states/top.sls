@@ -2,6 +2,7 @@ base:
   '*':
     - common
     - swift
+    - swift-ring
   'roles:admin':
     - match: grain
     - admin
