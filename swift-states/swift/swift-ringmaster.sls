@@ -15,7 +15,7 @@ swift-ring-master:
 
 install-swift-ring-master:
   cmd.wait:
-    - name: python setup.py install --prefix=/usr
+    - name: python setup.py install 
     - cwd: /usr/local/src/swift-ring-master
     - shell: /bin/bash
     - require:
